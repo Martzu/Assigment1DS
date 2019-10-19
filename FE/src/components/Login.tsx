@@ -11,13 +11,13 @@ import Container from '@material-ui/core/Container';
 import {Paper} from "@material-ui/core";
 import useRouter from "use-react-router";
 import appState from "../store/state";
-import actions from "../actions/actions";
 import axios from 'axios';
 import {observer} from "mobx-react";
 import {url} from "inspector";
 
 import useReactRouter from 'use-react-router';
 import {Simulate} from "react-dom/test-utils";
+import Session from "../types/Session";
 
 
 const useStyles = makeStyles(theme => ({
@@ -52,6 +52,10 @@ const SignIn = (function SignIn() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
+    useEffect(() => {
+        localStorage.clear();
+    },[]);
+
     const login = () => {
     debugger;
         axios.post("http://localhost:8080/login", {
@@ -61,11 +65,18 @@ const SignIn = (function SignIn() {
         )
             .then((response) => {
                 debugger;
-                console.log(response);
-                history.push("/doctor");
+                if(response.status == 200)
+                {
+                    console.log(response);
+                    const currentSession: Session = response.data;
+                    localStorage.setItem("sessionId",currentSession.sessionId);
+                    localStorage.setItem("role", currentSession.role);
+                    window.location.assign("/" + currentSession.role);
+                }
+
             })
             .catch(error => {
-                alert(error);
+                alert("Wrong credentials!");
             });
     };
 

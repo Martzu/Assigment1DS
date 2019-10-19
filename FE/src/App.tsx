@@ -13,7 +13,10 @@ const App: React.FC = () => {
                   <BrowserRouter>
                       <Switch>
                           <Route exact path = "/" component={Login}/>
-                          <Route exact path = "/doctor" component={DoctorMainPage}/>
+                          {
+                              localStorage.getItem("role") === "doctor" && <Route exact path = "/doctor" component={DoctorMainPage}
+                              />
+                          }
                       </Switch>
                   </BrowserRouter>
           </>

@@ -16,4 +16,6 @@ public interface HospitalUserRepository extends CRUDRepository<HospitalUser>, Re
 
     HospitalUser findHospitalUserByNameAndRole(String name, String role);
 
+    void removeHospitalUserById(Integer id);
+
 }

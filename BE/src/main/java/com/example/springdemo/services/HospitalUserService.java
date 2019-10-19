@@ -20,10 +20,18 @@ public class HospitalUserService {
     private final FactoryRepository factoryRepository;
 
 
-    public HospitalUser verifyUserCredentials(String username, String password)
+    public HospitalUser verifyUserCredentials(String username, String password) throws Exception {
+        return factoryRepository.createHospitalUserRepository().findHospitalUserByUsernameAndPassword(username, password).orElseThrow(() ->new Exception("No user found!"));
+    }
+
+    public void removeHospitalUserById(Integer id)
     {
-        //TODO test daca pusca
-        return factoryRepository.createHospitalUserRepository().findHospitalUserByUsernameAndPassword(username, password).orElse(new HospitalUser());
+        factoryRepository.createHospitalUserRepository().removeHospitalUserById(id);
+    }
+
+    public void removeHospitalUser(HospitalUser user)
+    {
+        factoryRepository.createHospitalUserRepository().delete(user);
     }
 
     public Optional<HospitalUser> findById(int id)

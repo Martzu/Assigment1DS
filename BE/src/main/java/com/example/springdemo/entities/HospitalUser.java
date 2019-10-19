@@ -24,9 +24,10 @@ public class HospitalUser {
     private String address;
     private String username;
     private String password;
+    private String birthDate;
     private String role;
 
-    public HospitalUser(String name, String gender, String address, String username, String password, String role, List<HospitalUser> patients)
+    public HospitalUser(String name, String gender, String address, String username, String password, String birthDate, String role, List<HospitalUser> patients)
     {
         this.name = name;
         this.gender = gender;
@@ -34,17 +35,19 @@ public class HospitalUser {
         this.username = username;
         this.password = password;
         this.role = role;
+        this.birthDate = birthDate;
         this.patients = patients;
         this.patients.forEach(patient -> patient.getCaretakers().add(this));
     }
 
-    public HospitalUser(String name, String gender, String address, String username, String password, String role)
+    public HospitalUser(String name, String gender, String address, String username, String password, String birthDate, String role)
     {
         this.name = name;
         this.gender = gender;
         this.address = address;
         this.username = username;
         this.password = password;
+        this.birthDate = birthDate;
         this.role = role;
     }
 
