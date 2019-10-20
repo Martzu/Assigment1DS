@@ -30,7 +30,7 @@ public class Seed implements CommandLineRunner {
     @Transactional
     public void run(String... args) throws Exception {
 
-        HospitalUser doctor1 = new HospitalUser("Alex", "M", "Cluj", "Alex", "parola", "12.05.1990",HospitalUserRoles.MEDIC);
+        /*HospitalUser doctor1 = new HospitalUser("Alex", "M", "Cluj", "Alex", "parola", "12.05.1990",HospitalUserRoles.MEDIC);
 
         HospitalUser patient1 = new HospitalUser("Andrei", "M", "Cluj", "Andrei", "parola", "12.05.1990",HospitalUserRoles.PATIENT);
         HospitalUser patient2 = new HospitalUser( "Andreea", "F", "Cluj", "Andreea", "parola", "12.05.1990",HospitalUserRoles.PATIENT);
@@ -79,6 +79,11 @@ public class Seed implements CommandLineRunner {
 
         HospitalUser medic = hospitalUserService.verifyUserCredentials("Alex", "parola");
 
-        System.out.println(medic.getRole());
+        System.out.println(medic.getRole());*/
+
+        /*HospitalUser patient = new HospitalUser("Andreea", "F", "Bucuresti", "deea","parola", "29.04.1997",HospitalUserRoles.PATIENT);
+        HospitalUser caretaker = hospitalUserService.findById(8).get();
+        hospitalUserService.assignPatientToCaretaker(patient,caretaker);*/
+
     }
 }
