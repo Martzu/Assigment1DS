@@ -73,7 +73,6 @@ const SignIn = (function SignIn() {
                     localStorage.setItem("role", currentSession.role);
                     window.location.assign("/" + currentSession.role);
                 }
-
             })
             .catch(error => {
                 alert("Wrong credentials!");

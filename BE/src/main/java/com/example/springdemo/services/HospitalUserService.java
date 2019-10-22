@@ -24,6 +24,8 @@ public class HospitalUserService {
         return factoryRepository.createHospitalUserRepository().findHospitalUserByUsernameAndPassword(username, password).orElseThrow(() ->new Exception("No user found!"));
     }
 
+
+
     public void removeHospitalUserById(Integer id)
     {
         factoryRepository.createHospitalUserRepository().removeHospitalUserById(id);

@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -20,6 +22,12 @@ public class Session {
     private String medicationName;
     private String sideEffects;
     private String dosage;
+
+    private String timePeriod;
+    private String intakeIntervals;
+
+    private List<Integer> medicalPlanMedicationsId;
+    private Integer patientId;
 
     public Session(Integer id, String role)
     {

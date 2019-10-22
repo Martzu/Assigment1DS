@@ -82,15 +82,23 @@ const DoctorMainPage = observer(function DoctorMainPage(){
         }
         else
         {
-            axios.post("http://localhost:8080/patients",{
-                sessionId: localStorage.getItem("sessionId"),
-                role: localStorage.getItem("role")
-            }).then(response => {
-                setUserTypeButtons("patients");
-                setUsersRows(response.data);
-            })
+            axios.all([
+                axios.post("http://localhost:8080/patients",{
+                    sessionId: localStorage.getItem("sessionId")}),
+                axios.post("http://localhost:8080/medications", {
+                    sessionId: localStorage.getItem("sessionId")})
+            ]).then(axios.spread((patientsResponse, medicationsResponse) => {
+                if(patientsResponse.status === 200)
+                {
+                    setUsersRows(patientsResponse.data);
+                    setUserTypeButtons("patients");
+                }
+                if(medicationsResponse.status === 200)
+                {
+                    setMedicationsRows(medicationsResponse.data);
+                }
+            }))
         }
-
     }, []);
     return (
         <>

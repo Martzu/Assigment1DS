@@ -5,6 +5,7 @@ import {Route, Switch} from "react-router";
 import DoctorMainPage from './components/Doctor';
 import {BrowserRouter} from "react-router-dom";
 import CaretakerMainPage from "./components/Caretaker";
+import Patient from "./components/Patient";
 
 
 const App: React.FC = () => {
@@ -19,6 +20,10 @@ const App: React.FC = () => {
                     }
                     {
                         localStorage.getItem("role") === "caretaker" && <Route exact path = "/caretaker" component={CaretakerMainPage}
+                        />
+                    }
+                    {
+                        localStorage.getItem("role") === "patient" && <Route exact path = "/patient" component={Patient}
                         />
                     }
                 </Switch>

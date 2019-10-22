@@ -5,11 +5,9 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
-import axios from 'axios';
-import HospitalUser from "../../types/HospitalUser";
 import HospitalUserTableProps from "../../props/HospitalUserTableProps";
-import {Button} from "@material-ui/core";
+
+import MedicalPlanButton from "../buttons/MedicalPlanButton";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -21,7 +19,6 @@ const useStyles = makeStyles((theme: Theme) =>
         },
     }),
 );
-
 
 
 const DenseTable = (props: HospitalUserTableProps) => {
@@ -53,7 +50,7 @@ const DenseTable = (props: HospitalUserTableProps) => {
                                 <TableCell align="right">{row.gender}</TableCell>
                                 <TableCell align="right">{row.birthDate}</TableCell>
                                 {
-                                    props.type === "patients" ? <TableCell align="center"><Button> Add Medical Plan</Button></TableCell> : <></>
+                                    props.type === "patients" ? <TableCell align="center"><MedicalPlanButton  patientId={row.id != undefined ? row.id : 0}/></TableCell> : <></>
                                 }
                             </TableRow>
                         ))}
