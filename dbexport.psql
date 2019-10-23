@@ -1,0 +1,405 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 11.5
+-- Dumped by pg_dump version 11.5
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- Name: caretaker_patient; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.caretaker_patient (
+    patient_id integer NOT NULL,
+    caretaker_id integer NOT NULL
+);
+
+
+ALTER TABLE public.caretaker_patient OWNER TO postgres;
+
+--
+-- Name: hospital_user; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.hospital_user (
+    id integer NOT NULL,
+    address character varying(255),
+    birth_date character varying(255),
+    gender character varying(255),
+    name character varying(255),
+    password character varying(255),
+    role character varying(255),
+    username character varying(255)
+);
+
+
+ALTER TABLE public.hospital_user OWNER TO postgres;
+
+--
+-- Name: hospital_user_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.hospital_user_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.hospital_user_id_seq OWNER TO postgres;
+
+--
+-- Name: hospital_user_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.hospital_user_id_seq OWNED BY public.hospital_user.id;
+
+
+--
+-- Name: medical_plan; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.medical_plan (
+    id integer NOT NULL,
+    intake_intervals character varying(255),
+    time_period character varying(255),
+    doctor_id integer NOT NULL,
+    patient_id integer NOT NULL
+);
+
+
+ALTER TABLE public.medical_plan OWNER TO postgres;
+
+--
+-- Name: medical_plan_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.medical_plan_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.medical_plan_id_seq OWNER TO postgres;
+
+--
+-- Name: medical_plan_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.medical_plan_id_seq OWNED BY public.medical_plan.id;
+
+
+--
+-- Name: medical_plan_medication; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.medical_plan_medication (
+    medication_id integer NOT NULL,
+    medication_plan_id integer NOT NULL
+);
+
+
+ALTER TABLE public.medical_plan_medication OWNER TO postgres;
+
+--
+-- Name: medication; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.medication (
+    id integer NOT NULL,
+    dosage character varying(255),
+    name character varying(255),
+    side_effects character varying(255)
+);
+
+
+ALTER TABLE public.medication OWNER TO postgres;
+
+--
+-- Name: medication_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.medication_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.medication_id_seq OWNER TO postgres;
+
+--
+-- Name: medication_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.medication_id_seq OWNED BY public.medication.id;
+
+
+--
+-- Name: person; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.person (
+    id integer NOT NULL,
+    address character varying(255),
+    email character varying(200) NOT NULL,
+    iban character varying(255),
+    name character varying(100)
+);
+
+
+ALTER TABLE public.person OWNER TO postgres;
+
+--
+-- Name: person_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.person_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.person_id_seq OWNER TO postgres;
+
+--
+-- Name: person_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.person_id_seq OWNED BY public.person.id;
+
+
+--
+-- Name: hospital_user id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.hospital_user ALTER COLUMN id SET DEFAULT nextval('public.hospital_user_id_seq'::regclass);
+
+
+--
+-- Name: medical_plan id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.medical_plan ALTER COLUMN id SET DEFAULT nextval('public.medical_plan_id_seq'::regclass);
+
+
+--
+-- Name: medication id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.medication ALTER COLUMN id SET DEFAULT nextval('public.medication_id_seq'::regclass);
+
+
+--
+-- Name: person id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.person ALTER COLUMN id SET DEFAULT nextval('public.person_id_seq'::regclass);
+
+
+--
+-- Data for Name: caretaker_patient; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.caretaker_patient (patient_id, caretaker_id) FROM stdin;
+2	3
+4	3
+5	3
+6	3
+10	8
+\.
+
+
+--
+-- Data for Name: hospital_user; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.hospital_user (id, address, birth_date, gender, name, password, role, username) FROM stdin;
+1	Cluj	12.05.1990	M	Alex	parola	doctor	Alex
+2	Cluj	12.05.1990	M	Andrei	parola	patient	Andrei
+3	Cluj	13.02.1997	F	Mihaela	parola	caretaker	Mihaela
+4	Cluj	12.05.1990	F	Andreea	parola	patient	Andreea
+5	Cluj	12.05.1990	F	Ioana	parola	patient	Ioana
+6	Iasi	12.05.1990	M	Ion	parola	patient	Ion
+8	Iasi	29.04.1997	F	Daniela	\N	caretaker	\N
+10	Bucuresti	29.04.1997	F	Andreea	parola	patient	deea
+\.
+
+
+--
+-- Data for Name: medical_plan; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.medical_plan (id, intake_intervals, time_period, doctor_id, patient_id) FROM stdin;
+1	Amphetamine 5ml morning, Morphine 1 ml evening	3 weeks	1	6
+2	1 morning, 1 evening	Everday	1	10
+\.
+
+
+--
+-- Data for Name: medical_plan_medication; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.medical_plan_medication (medication_id, medication_plan_id) FROM stdin;
+1	1
+1	2
+2	1
+2	2
+\.
+
+
+--
+-- Data for Name: medication; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.medication (id, dosage, name, side_effects) FROM stdin;
+1	20ml	Amphetamine	Nausea, hallucinations
+2	2.5 ml	Morphine	Hallucinations, possible suffocation\t
+\.
+
+
+--
+-- Data for Name: person; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.person (id, address, email, iban, name) FROM stdin;
+\.
+
+
+--
+-- Name: hospital_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.hospital_user_id_seq', 10, true);
+
+
+--
+-- Name: medical_plan_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.medical_plan_id_seq', 2, true);
+
+
+--
+-- Name: medication_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.medication_id_seq', 3, true);
+
+
+--
+-- Name: person_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.person_id_seq', 1, false);
+
+
+--
+-- Name: hospital_user hospital_user_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.hospital_user
+    ADD CONSTRAINT hospital_user_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: medical_plan medical_plan_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.medical_plan
+    ADD CONSTRAINT medical_plan_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: medication medication_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.medication
+    ADD CONSTRAINT medication_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: person person_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.person
+    ADD CONSTRAINT person_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: medical_plan fk1jhk8sqet6ub5p75l1afrigfw; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.medical_plan
+    ADD CONSTRAINT fk1jhk8sqet6ub5p75l1afrigfw FOREIGN KEY (doctor_id) REFERENCES public.hospital_user(id);
+
+
+--
+-- Name: caretaker_patient fk3j8oanirmay558o8udr6ddapv; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.caretaker_patient
+    ADD CONSTRAINT fk3j8oanirmay558o8udr6ddapv FOREIGN KEY (caretaker_id) REFERENCES public.hospital_user(id);
+
+
+--
+-- Name: caretaker_patient fk58bskofschx080xgbst4cds59; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.caretaker_patient
+    ADD CONSTRAINT fk58bskofschx080xgbst4cds59 FOREIGN KEY (patient_id) REFERENCES public.hospital_user(id);
+
+
+--
+-- Name: medical_plan_medication fk5ghpmfcjb1wgrk924ptk1p7l4; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.medical_plan_medication
+    ADD CONSTRAINT fk5ghpmfcjb1wgrk924ptk1p7l4 FOREIGN KEY (medication_id) REFERENCES public.medical_plan(id);
+
+
+--
+-- Name: medical_plan fkoeq0965oep9cummnwho7m3o2r; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.medical_plan
+    ADD CONSTRAINT fkoeq0965oep9cummnwho7m3o2r FOREIGN KEY (patient_id) REFERENCES public.hospital_user(id);
+
+
+--
+-- Name: medical_plan_medication fkps4gsa66u75wymqu3u93so54q; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.medical_plan_medication
+    ADD CONSTRAINT fkps4gsa66u75wymqu3u93so54q FOREIGN KEY (medication_plan_id) REFERENCES public.medication(id);
+
+
+--
+-- PostgreSQL database dump complete
+--
+
