@@ -9,8 +9,10 @@ import com.example.springdemo.entities.HospitalUserRoles;
 import com.example.springdemo.entities.MedicalPlan;
 import com.example.springdemo.entities.Medication;
 import com.example.springdemo.dto.Session;
+import com.example.springdemo.event.BaseEvent;
 import com.example.springdemo.services.ServiceFactory;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.event.EventListener;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -215,8 +217,6 @@ public class HospitalUserController {
         }
         return medicalPlans;
     }
-
-
 
     private boolean isPatientLoggedIn(Session session)
     {
