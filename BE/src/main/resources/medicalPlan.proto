@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+option java_package = "com.example.springdemo.grpc";
+
+service medicalPlan{
+    rpc downloadMedicalPlan(ClientRequest) returns (MedicalPlansResponse);
+    rpc medicationTaken(Medication) returns (Empty);
+}
+
+message ClientRequest{
+    string patientId = 1;
+    string medicalPlanDay = 2;
+}
+
+message MedicalPlansResponse{
+    repeated string medicalPlans = 1;
+    string intakeIntervals = 2;
+}
+
+message Medication{
+    string name = 1;
+}
+
+message Empty{
+
+}
